@@ -29,19 +29,20 @@ async function updateTopTracks(json) {
 
   const tracks = json.items.map(item => ({
     name: item.name,
-    artist: item.artists.map(artist => artist.name.trim()).join(' & '),
+    //artist: item.artists.map(artist => artist.name.trim()).join(' & '),
   }))
   if (!tracks.length) return
 
   const lines = []
   for (let index = 0; index < Math.min(tracks.length, 10); index++) {
-    let { name, artist } = tracks[index]
+    // let { name, artist } = tracks[index]
+    let { name } = tracks[index]
     name = truncate(name, 25)
-    artist = truncate(artist, 19)
+    // artist = truncate(artist, 19)
 
     const line = [
       name.padEnd(34 + name.length - eaw.length(name)),
-      artist.padStart(20 + artist.length - eaw.length(artist)),
+      // artist.padStart(20 + artist.length - eaw.length(artist)),
     ]
     lines.push(line.join(''))
   }
@@ -52,7 +53,7 @@ async function updateTopTracks(json) {
       gist_id,
       files: {
         [filename]: {
-          filename: '🎵 My Spotify Top Track',
+          filename: '🎵 My Spotify Top Artist',
           content: lines.join('\n'),
         },
       },

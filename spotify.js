@@ -12,7 +12,7 @@ const {
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
 
 const EndpointGetToken = 'https://accounts.spotify.com/api/token'
-const EndpointGetTopTopTracks = 'https://api.spotify.com/v1/me/top/tracks'
+const EndpointGetTopTopTracks = 'https://api.spotify.com/v1/me/top/artists'
 
 const getAccessToken = async () => {
   const resp = await fetch(EndpointGetToken, {
@@ -31,7 +31,7 @@ const getAccessToken = async () => {
 exports.getTopTracks = async function getTopTracks() {
   const { access_token } = await getAccessToken()
 
-  const resp = await fetch(`${EndpointGetTopTopTracks}?time_range=short_term`, {
+  const resp = await fetch(`${EndpointGetTopTopTracks}?time_range=short_term&limit=5&offset=0`, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
